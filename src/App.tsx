@@ -7,7 +7,6 @@ import {
   Globe,
   ArrowRight,
   ArrowLeft,
-  ChevronRight,
   Mountain,
   Tractor,
   Hospital,
@@ -590,32 +589,6 @@ function ParticleBackground() {
   return <canvas ref={canvasRef} className="absolute inset-0 z-0" />;
 }
 
-/* ─── ANIMATED COUNTER ───────────────────────────────────────────── */
-
-function AnimatedCounter({ value, suffix = '' }: { value: number; suffix?: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    let start = 0;
-    const end = value;
-    const duration = 2000;
-    const startTime = Date.now();
-
-    const tick = () => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-      start = Math.floor(eased * end);
-      setCount(start);
-      if (progress < 1) requestAnimationFrame(tick);
-    };
-    tick();
-  }, [value]);
-
-  return <span ref={ref}>{count}{suffix}</span>;
-}
-
 /* ─── MAIN COMPONENT ──────────────────────────────────────────────── */
 
 type View = 'intro' | 'choose' | 'products' | 'usecases' | 'product-detail' | 'usecase-detail';
@@ -883,7 +856,7 @@ function IntroScreen({ step, onSkip, onEnter, onSelectProduct, onSelectUseCase }
 
           <div className="mwc-hero-side-nav">
             <div className="mwc-hero-slide-indicators">
-              {heroVideos.map((video, i) => (
+              {heroVideos.map((_, i) => (
                 <div key={i} className={`mwc-hero-indicator-item ${i === activeVideo ? 'active' : ''}`}>
                   <span className="mwc-hero-indicator-num">{(i + 1).toString().padStart(2, '0')}</span>
                   {i === activeVideo && <span className="mwc-hero-indicator-line-active" />}
@@ -1827,12 +1800,12 @@ function UseCaseDetail({ useCase, index, total, onBack, onNext, onPrev }: UseCas
                 </>
               ) : (
                 <div className="mwc-story-animation-wrap">
-                  {useCase.story[storyStep].component === 'disaster' && <DisasterScene />}
-                  {useCase.story[storyStep].component === 'railway' && <RailwayScene />}
-                  {useCase.story[storyStep].component === 'agriculture' && <AgricultureScene />}
-                  {useCase.story[storyStep].component === 'remote-connectivity' && <RemoteConnectivityScene />}
-                  {useCase.story[storyStep].component === 'factory' && <FactoryScene />}
-                  {useCase.story[storyStep].component === 'hiking' && <HikingScene />}
+                  {(useCase.story[storyStep] as any).component === 'disaster' && <DisasterScene />}
+                  {(useCase.story[storyStep] as any).component === 'railway' && <RailwayScene />}
+                  {(useCase.story[storyStep] as any).component === 'agriculture' && <AgricultureScene />}
+                  {(useCase.story[storyStep] as any).component === 'remote-connectivity' && <RemoteConnectivityScene />}
+                  {(useCase.story[storyStep] as any).component === 'factory' && <FactoryScene />}
+                  {(useCase.story[storyStep] as any).component === 'hiking' && <HikingScene />}
                 </div>
               )}
             </motion.div>
