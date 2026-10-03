@@ -1485,7 +1485,7 @@ function ProductDetail({ product, index, total, onBack, onNext, onPrev }: Produc
                 <>
                   <video 
                     ref={videoRef}
-                    className="mwc-story-media" 
+                    key={product.story[storyStep].media} className="mwc-story-media" 
                     autoPlay 
                     muted={isMuted} 
                     playsInline
@@ -1777,7 +1777,7 @@ function UseCaseDetail({ useCase, index, total, onBack, onNext, onPrev }: UseCas
                 <>
                   <video 
                     ref={videoRef}
-                    className="mwc-story-media" 
+                    key={useCase.story[storyStep].media} className="mwc-story-media" 
                     autoPlay 
                     muted={isMuted} 
                     playsInline
@@ -4328,3 +4328,4 @@ ${globalAnimStyles}
   }
 }
 `;
+
