@@ -613,18 +613,20 @@ export default function MWCShowcase() {
     setView('choose');
   }, []);
 
-  const goToProducts = useCallback(() => setView('products'), []);
-  const goToUseCases = useCallback(() => setView('usecases'), []);
-  const goToChoose = useCallback(() => setView('choose'), []);
-  const goToIntro = useCallback(() => setView('intro'), []);
+  const goToProducts = useCallback(() => { window.scrollTo(0, 0); setView('products'); }, []);
+  const goToUseCases = useCallback(() => { window.scrollTo(0, 0); setView('usecases'); }, []);
+  const goToChoose = useCallback(() => { window.scrollTo(0, 0); setView('choose'); }, []);
+  const goToIntro = useCallback(() => { window.scrollTo(0, 0); setView('intro'); }, []);
 
   const openProduct = useCallback((i: number) => {
     setSelectedProduct(i);
+    window.scrollTo(0, 0);
     setView('product-detail');
   }, []);
 
   const openUseCase = useCallback((i: number) => {
     setSelectedUseCase(i);
+    window.scrollTo(0, 0);
     setView('usecase-detail');
   }, []);
 
@@ -671,15 +673,17 @@ export default function MWCShowcase() {
             product={products[selectedProduct]}
             index={selectedProduct}
             total={products.length}
-            onBack={() => setView('products')}
+            onBack={() => { window.scrollTo(0, 0); setView('products'); }}
             onNext={() => {
               if (selectedProduct < products.length - 1) {
                 setSelectedProduct(selectedProduct + 1);
+                window.scrollTo(0, 0);
               }
             }}
             onPrev={() => {
               if (selectedProduct > 0) {
                 setSelectedProduct(selectedProduct - 1);
+                window.scrollTo(0, 0);
               }
             }}
           />
@@ -690,15 +694,17 @@ export default function MWCShowcase() {
             useCase={useCases[selectedUseCase]}
             index={selectedUseCase}
             total={useCases.length}
-            onBack={() => setView('usecases')}
+            onBack={() => { window.scrollTo(0, 0); setView('usecases'); }}
             onNext={() => {
               if (selectedUseCase < useCases.length - 1) {
                 setSelectedUseCase(selectedUseCase + 1);
+                window.scrollTo(0, 0);
               }
             }}
             onPrev={() => {
               if (selectedUseCase > 0) {
                 setSelectedUseCase(selectedUseCase - 1);
+                window.scrollTo(0, 0);
               }
             }}
           />
